@@ -29,22 +29,14 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default : false,
     },
-
-
-
-
-
-
-
-
-
-
-    
-    
-
-
-    
-
+    fcmToken:{
+        type: String,
+        required: true,
+    },
+    isSubscribe:{
+        type: Boolean,
+        default : false,
+    }
 });
 
 const User = mongoose.model("User", UserSchema);

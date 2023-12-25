@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import ConnectDB from './src/config/db.js';
 import AuthRoutes from './src/routes/AuthRoutes.js';
+import UserRoutes from './src/routes/UserRoutes.js';
 
 
-import User from './src/models/User.js';
 
 const app = express();
 
@@ -19,9 +19,9 @@ app.use(express.json());
 
 app.use('/auth',AuthRoutes );
 
-
+app.use('/users',UserRoutes)
 app.get('/', (req, res) => {
-    res.send('Kurio Rest API');
+    res.send('frely Rest API');
 }
 );
 

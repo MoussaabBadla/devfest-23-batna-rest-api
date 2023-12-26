@@ -48,3 +48,13 @@ import Story from "../models/Story.js";
       return null;
     }
   }
+
+  export const deleteAllStoriesService = async ()=>{
+    try {
+      const stories = await Story.deleteMany();
+      return stories;
+    } catch (err) {
+      console.log(err.message);
+      return null;
+    }
+  }

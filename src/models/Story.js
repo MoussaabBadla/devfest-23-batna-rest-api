@@ -4,7 +4,7 @@ const StorySchema = new mongoose.Schema({
     storyId: {
         type: String,
         required: true,
-        // unique: true,
+        unique: true,
     },
     title: {
         type: String,

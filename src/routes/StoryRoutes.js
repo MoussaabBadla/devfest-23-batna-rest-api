@@ -1,8 +1,6 @@
 import express from "express"
-import { checkValidation } from "../middlewares/validationMiddleware.js";
 import { generateStoryFromTextController, getStoriesController, getStoryController, getUserStoriesController } from "../controllers/StoryController.js";
 import { protect } from "../middlewares/auth.js";
-import storyFromtextDto from "../validations/story/storyFromtext.dto.js";
 
 /**
  * @swagger
@@ -70,6 +68,6 @@ import storyFromtextDto from "../validations/story/storyFromtext.dto.js";
 const router = express.Router();
 router.get('/',protect, getStoriesController );
 router.get('/user',protect, getUserStoriesController );
-router.post('/generateStory/text',protect,storyFromtextDto,checkValidation, generateStoryFromTextController);
+router.post('/generateStory/text',protect, generateStoryFromTextController);
 router.get('/:storyId',protect, getStoryController );
 export default router;

@@ -26,7 +26,7 @@ export async function loginController(req, res) {
     }
     const  result = await loginUser(email, password);
     if (!result.success) {
-      return errorResponse(res,result.message, 400);
+      return errorResponse(res,"Invalid credationls", 400);
     }
     const user = result.data;
     const token = generateToken(user._id);

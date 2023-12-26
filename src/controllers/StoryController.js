@@ -5,28 +5,29 @@ import {load_local, save_local, apilink1 } from '../utils/localvariablesConsts.j
 import { notifyAllUsers } from "../utils/notificationTriggers.js";
 import { errorResponse, successResponse } from "../utils/responseSending.js";
 import { postToInsta } from "../utils/socialPosting/instaPostingUtils.js";
+import { postTelegramPost } from "../utils/socialPosting/telegramPostingUtils.js";
 
 export async function generateStoryFromTextController(req,res){
     try {
       const {language,story_theme,story_morals,story_details }= req.body
       const user = req.user
       const response = await createStoryFromTextRequest({language,story_theme,story_morals,story_details,load_local,save_local},apilink1+"/story")
-       console.log(response.data);
+     
       if(response.status>=200 && response.status<300){
         const story =await CreateStory(
           {
           storyId : response.data.id , 
           title : response.data.title,
           content : response.data.content,
-          image : response.data.image,
-          
-          
+          image : response.data.image,          
           userId : user.id})
         if(story.type == 'news'){
+           successResponse(res, "story created successfully",story,201);
           const notif = await createNotification({title:story.title,description:"Check it Out",type:story.type})
         await notifyAllUsers(notif)
-            await postToInsta(story.image,story.description)
-            return successResponse(res, "story created successfully",story,201);
+            // await postToInsta(story.image,story.title)
+           const responseTelgram= await postTelegramPost(response.data.title,response.data.image)
+           return
         }else if (story.type == 'news'){
           const notif = await createNotification({title:story.title,description:story.description,type:story.type})
           await notifyAllUsers(notif)

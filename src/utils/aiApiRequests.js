@@ -5,6 +5,7 @@ export async function createStoryFromTextRequest( {language,story_theme,story_mo
             language: language,
             story_morals: story_morals,
             story_details: story_details,
+            story_theme:story_theme,
             img_type: "realistic"
         },
         load_local: load_local,
@@ -12,9 +13,6 @@ export async function createStoryFromTextRequest( {language,story_theme,story_mo
 
 
     }
-
-    const response= await axios.post(url,data
-
-    ).catch((err)=>{console.log(err);return err.response})
+    const response= await axios.post(url,data).catch((err)=>{console.log(err);return err.response})
     return response
 } 

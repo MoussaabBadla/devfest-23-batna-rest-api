@@ -1,24 +1,32 @@
-import dotenv from 'dotenv'
-
-dotenv.config()
-
-const username = process.env.insta_username
-const password = process.env.insta_password 
-
-import { IgApiClient }  from 'instagram-private-api';
-import pkg from 'request-promise';
+import { config } from "dotenv";
+import { IgApiClient } from "instagram-private-api";
+import Jimp from 'jimp';
+import pkg from "request-promise";
 const { get } = pkg;
+config();
 
-export const postToInsta = async (img , caption) => {
+const username = process.env.insta_username;
+const password = process.env.insta_password;
+
+export const postToInsta = async (img, caption) => {
+  try {
     const ig = new IgApiClient();
     ig.state.generateDevice(username);
-    await ig.account.login(username, password);
+    console.log("starte insta");
+    const loginResponse = await ig.account.login(username, password);
+
     const imageBuffer = await get({
         url: img,
         encoding: null, 
     });
-    await ig.publish.photo({
-        file: imageBuffer,
-        caption: caption, 
+
+    const instaResponse = await ig.publish.photo({
+      file:imageBuffer,
+      caption: caption,
     });
-}
+    console.log(instaResponse);
+    return null;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};

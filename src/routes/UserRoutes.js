@@ -1,8 +1,5 @@
 import express from "express"
 import { deleteUserController, forgetPasswordController, getSubscribsUsersController, getUserController, getUsersController, updateUserController } from "../controllers/UsersController.js";
-import updateMemberDto from "../validations/userDto/updateUser.dto.js";
-import { checkValidation } from "../middlewares/validationMiddleware.js";
-import forgetPasswordDto from "../validations/userDto/forgetpassword.dto.js";
 // import { protect } from "../middlewares/auth.js";
 
 /**
@@ -133,6 +130,6 @@ router.get("/subscribes",getSubscribsUsersController);
 router.get("/:userId",getUserController)
 router.delete("/:userId",deleteUserController)
 
-router.put("/:userId",updateMemberDto,checkValidation,updateUserController)
-router.put("/forgetpassword",forgetPasswordDto,checkValidation,forgetPasswordController)
+router.put("/:userId",updateUserController)
+router.put("/forgetpassword",forgetPasswordController)
 export default router;

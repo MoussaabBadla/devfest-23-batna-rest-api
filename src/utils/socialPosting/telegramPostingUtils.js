@@ -8,27 +8,19 @@ const token = process.env.telegram_token
 
 
 
-const postTelegramText = (text)=>{
-    axios.post(`https://api.telegram.org/bot${token}/sendPhoto?chat_id=${id_client}&text=${text}`, form, { headers: { ...form.getHeaders(), }, })
-    .then((response) => {
-        console.log(response.data);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-}
-
-
-const postTelegramPhoto = (imgUrl)=>{
+const postTelegramPost =async (text,imgUrl)=>{
+ try{
     form.append('photo', imgUrl);
-    axios.post(`https://api.telegram.org/bot${token}/sendPhoto?chat_id=${id_client}`, form, { headers: { ...form.getHeaders(), }, })
-    .then((response) => {
-        console.log(response.data);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+    form.append('caption', text);
+    const response = axios.post(`https://api.telegram.org/bot${token}/sendPhoto?chat_id=${id_client}&text=${text}`, form, { headers: { ...form.getHeaders(), }, })
+    console.log(response)
+    return response
+ }catch(err){
+    console.log(err);
+    throw err
+ }
 }
+
 
 const postTelegramAudio = (url)=>{
     form.append("audio", url);
@@ -43,4 +35,4 @@ const postTelegramAudio = (url)=>{
     });
 }
 
-export {postTelegramAudio , postTelegramPhoto , postTelegramText}
+export {postTelegramAudio ,postTelegramPost}

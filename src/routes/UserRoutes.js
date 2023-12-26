@@ -1,5 +1,6 @@
 import express from "express"
 import { deleteUserController, forgetPasswordController, getSubscribsUsersController, getUserController, getUsersController, updateUserController } from "../controllers/UsersController.js";
+import { protect } from "../middlewares/auth.js";
 // import { protect } from "../middlewares/auth.js";
 
 /**
@@ -125,11 +126,11 @@ import { deleteUserController, forgetPasswordController, getSubscribsUsersContro
 
 const router = express.Router();
 
-router.get("/",getUsersController);
-router.get("/subscribes",getSubscribsUsersController);
-router.get("/:userId",getUserController)
-router.delete("/:userId",deleteUserController)
+router.get("/",protect, getUsersController);
+router.get("/subscribes",protect,getSubscribsUsersController);
+router.get("/:userId",protect,getUserController)
+router.delete("/:userId",protect,deleteUserController)
 
-router.put("/:userId",updateUserController)
+router.put("/:userId",protect,updateUserController)
 router.put("/forgetpassword",forgetPasswordController)
 export default router;

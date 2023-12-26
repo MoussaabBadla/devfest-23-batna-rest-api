@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const StorySchema = new mongoose.Schema({
-    storyId: {
+const PodcastSchema = new mongoose.Schema({
+    podcastId: {
         type: String,
         required: true,
         unique: true,
@@ -14,7 +14,7 @@ const StorySchema = new mongoose.Schema({
         type: String, //news private public 
         default : 'news',
     },
-    content: {
+   audio: {
         type: String,
         required : true,
     },
@@ -25,6 +25,6 @@ const StorySchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
-const Story = mongoose.model("Story", StorySchema);
+const Podcast = mongoose.model("Podcast", PodcastSchema);
 
-export default Story;
+export default Podcast;

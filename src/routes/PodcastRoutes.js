@@ -1,7 +1,6 @@
 import express from "express"
-import { deleteAllStoriesController, deleteStoryController, generateStoryFromAudioController, generateStoryFromImageController, generateStoryFromTextController, getStoriesController, getStoryController, getUserStoriesController, updateStoryTypeController } from "../controllers/StoryController.js";
 import { protect } from "../middlewares/auth.js";
-import { handleAudioUploadRequiredFile, handleImgUrlRequiredFile, uploadFile } from "../middlewares/imgUploadMiddlware.js";
+import { deletePodcastController, generatePodcastController, getPodcastController, getPodcastsController, getUserPodcastsController, updatePodcastTypeController } from "../controllers/PodcastController.js";
 
 /**
  * @swagger
@@ -67,13 +66,11 @@ import { handleAudioUploadRequiredFile, handleImgUrlRequiredFile, uploadFile } f
  */
 
 const router = express.Router();
-router.get('/',protect, getStoriesController );
-router.delete('/', deleteAllStoriesController );
-router.get('/user',protect, getUserStoriesController );
-router.post('/generateStory/text',protect, generateStoryFromTextController);
-router.post('/generateStory/image',protect,uploadFile.single("imgUrl"),handleImgUrlRequiredFile, generateStoryFromImageController);  
-router.post('/generateStory/audio',protect,uploadFile.single("audio"),handleAudioUploadRequiredFile, generateStoryFromAudioController);
-router.get('/:storyId',protect, getStoryController );
-router.delete('/:storyId',protect, deleteStoryController);
-router.put('/:storyId',protect,updateStoryTypeController)
+router.get('/',protect, getPodcastsController);
+router.get('/user',protect, getUserPodcastsController );
+router.post('/generateStory/podcast',protect,generatePodcastController);
+router.put('/:podcastId',protect,updatePodcastTypeController); 
+router.get('/:podcastId',protect, getPodcastController );
+router.delete('/:podcastId',protect, deletePodcastController);
 export default router;
+

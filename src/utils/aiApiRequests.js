@@ -36,7 +36,24 @@ export async function createStoryFromImageRequest( {imgUrl},url) {
     const response= await axios.post(url,data).catch((err)=>{console.log(err);return err.response})
     return response
 } 
+export async function createPodcastRequest({n_people,
+    duration,
+    field,
+    topic,load_local,save_local},url){
+   const data= {
+        generation_params: {
+          n_people:n_people,
+          duration:duration,
+          field:field,
+          topic:topic
+        },
+        load_local: load_local,
+        save_local: save_local
+      }
 
+      const response = await axios.post(url,data).catch((err)=>{console.log(err);return err.response})
+      return response
+}
 
 export async function createStoryFromAudioRequest( {audio},url) {
     const  data = {

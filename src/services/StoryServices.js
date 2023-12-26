@@ -58,3 +58,19 @@ import Story from "../models/Story.js";
       return null;
     }
   }
+
+  export const updateStoryTypeService = async(storyId,type)=>{
+    try {
+        if(type === 'news' || type === 'public'){
+            const story = await Story.updateOne({storyId: storyId }, { $set:{type:'private'} });
+            return story;
+        }else{
+            const story = await Story.updateOne({storyId: storyId }, { $set:{type:'public'} });
+            return story;
+        }
+        
+      } catch (err) {
+        console.log(err.message);
+        return null;
+      }
+  }

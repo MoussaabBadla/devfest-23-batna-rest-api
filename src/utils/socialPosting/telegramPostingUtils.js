@@ -1,5 +1,6 @@
 import axios from 'axios';
 import FormData  from "form-data";
+import fs from 'fs';
 import env from "dotenv";
 env.config()
 const form = new FormData();
@@ -22,17 +23,13 @@ const postTelegramPost =async (text,imgUrl)=>{
 }
 
 
-const postTelegramAudio = (url)=>{
-    form.append("audio", url);
-    form.append("title", "audio dev test");
-    axios.post(`https://api.telegram.org/bot${token}/sendAudio?chat_id=${id_client}`, form, { headers: { ...form.getHeaders(), }, })
-    .then((res) => res.json())
-    .then((response) => {
-        console.log(response);
-    })
-    .catch((error) => {
+const postTelegramAudio = async(url,title)=>{
+    form.append("audio", fs.createReadStream(url));
+    form.append("title", title);
+   const response = await axios.post(`https://api.telegram.org/bot${token}/sendAudio?chat_id=${id_client}`, form, { headers: { ...form.getHeaders(), }, }).catch((error) => {
         console.log(error);
     });
+    return  response
 }
 
 export {postTelegramAudio ,postTelegramPost}

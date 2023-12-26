@@ -71,8 +71,8 @@ router.get('/',protect, getStoriesController );
 router.delete('/', deleteAllStoriesController );
 router.get('/user',protect, getUserStoriesController );
 router.post('/generateStory/text',protect, generateStoryFromTextController);
-router.post('/generateStory/image',protect,uploadFile.single("imgUrl"),handleImgUrlRequiredFile, generateStoryFromImageController);  
-router.post('/generateStory/audio',protect,uploadFile.single("audio"),handleAudioUploadRequiredFile, generateStoryFromAudioController);
+router.post('/generateStory/image',protect,uploadFile.single("image_url"),handleImgUrlRequiredFile,generateStoryFromImageController);  
+// router.post('/generateStory/audio',protect,uploadFile.single("audio"),handleAudioUploadRequiredFile, generateStoryFromAudioController);
 router.get('/:storyId',protect, getStoryController );
 router.delete('/:storyId',protect, deleteStoryController);
 router.put('/:storyId',protect,updateStoryTypeController)

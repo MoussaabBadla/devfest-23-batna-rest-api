@@ -4,7 +4,7 @@ import ConnectDB from './src/config/db.js';
 import AuthRoutes from './src/routes/AuthRoutes.js';
 import UserRoutes from './src/routes/UserRoutes.js';
 import StoryRoutes from './src/routes/StoryRoutes.js';
-
+import PodcastRoutes from './src/routes/PodcastRoutes.js'
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
@@ -30,6 +30,7 @@ app.use('/auth',AuthRoutes );
 app.use('/fcmToken',fcmTokenRoutes);
 app.use('/users',UserRoutes)
 app.use('/stories',StoryRoutes)
+app.use('/podcasts',PodcastRoutes)
 app.get('/', (req, res) => {
     res.send('wa9i3 Rest API');
 }

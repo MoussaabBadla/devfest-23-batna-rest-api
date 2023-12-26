@@ -51,39 +51,40 @@ export async function generateStoryFromTextController(req,res){
 
 export async function generateStoryFromImageController(req,res){
   try {
-    const {imgUrl }= req.body
+    const {image_url,language,story_details,story_type }= req.body
     const user = req.user
-    const response = await createStoryFromImageRequest({imgUrl},apilink1+"/story")
+    successResponse(res,"your story is coocking",{})
+    const response = await createStoryFromImageRequest({image_url,language,story_details,load_local,save_local},apilink1+"/story")
    
     if(response.status>=200 && response.status<300){
-      const oldStory = await getStory(response.data.id)
-      if (oldStory) return errorResponse(res,"story with that id already exists")
       const story =await CreateStory(
         {
         storyId : response.data.id , 
         title : response.data.title,
+        story_type:story_type, 
         content : response.data.content,
-        image : response.data.image,          
+        image : image_url,          
         userId : user.id})
         
       if(story.type == 'news'){
-         successResponse(res, "story created successfully",story,201);
         const notif = await createNotification({title:story.title,description:"Check it Out",type:story.type})
       await notifyAllUsers(notif)
           // await postToInsta(story.image,story.title)
-         const responseTelgram= await postTelegramPost(response.data.title,response.data.image)
+         const responseTelgram= await postTelegramPost(response.data.title,story.type)
          return
-      }else if (story.type == 'news'){
-        const notif = await createNotification({title:story.title,description:story.description,type:story.type})
-        await notifyAllUsers(notif)
-        return successResponse(res, "story created successfully",story,201);
       }else{
-        return successResponse(res, "story created successfully",story,201);
+        const notif = await createNotification({title:story.title,description:"your story has been published",type:story.type})
+          await notifyUserAfterStoryCreation(notif,user.fcmToken)
+          return 
       }
     }
-    return errorResponse(res,response.message, response.status);
+    const notif = await createNotification({title:"Error",description:"there were some issue while generating your story",type:story.type})
+    await notifyUserAfterStoryCreation(notif,user.fcmToken)
+    return 
   } catch (err) {
-    return errorResponse(res,"something went wrong "+err.message, 500);
+    const notif = await createNotification({title:"Error",description:"there were some issue while generating your story "+response.message,type:story.type})
+    await notifyUserAfterStoryCreation(notif,user.fcmToken)
+    return
   }
  
 }
@@ -190,3 +191,4 @@ export async function updateStoryTypeController(req,res){
     
   }
 }
+

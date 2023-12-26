@@ -18,20 +18,17 @@ export async function createStoryFromTextRequest( {language,story_theme,story_mo
 } 
 
 
-export async function createStoryFromImageRequest( {imgUrl},url) {
+export async function createStoryFromImageRequest( {image_url,language,story_details,load_local,save_local},url) {
     const  data = {
-        // generation_params: {
-        //     language: language,
-        //     story_morals: story_morals,
-        //     story_details: story_details,
-        //     story_theme:story_theme,
-        //     img_type: "realistic"
-        // },
+        generation_params: {
+            image_url:image_url,
+            language: language,
+            story_details: story_details,
+            img_type: "realistic"
+        },
         imgUrl:imgUrl,
         load_local: load_local,
         save_local: save_local
-
-
     }
     const response= await axios.post(url,data).catch((err)=>{console.log(err);return err.response})
     return response

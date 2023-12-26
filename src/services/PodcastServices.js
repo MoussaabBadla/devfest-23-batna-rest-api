@@ -2,9 +2,9 @@ import Podcast from "../models/Podcast.js";
 
   export const CreatePodcast = async (PodcastData)=>{
     try {
-      const Podcast = new Podcast(PodcastData)
-      await Podcast.save()
-      return Podcast;
+      const podcast = new Podcast(PodcastData)
+      await podcast.save()
+      return podcast;
     } catch (err) {
       console.log(err.message);
       return null;
@@ -13,8 +13,8 @@ import Podcast from "../models/Podcast.js";
 
   export const getPodcasts = async ()=>{
     try {
-      const Podcasts = await Podcast.find();
-      return Podcasts;
+      const podcasts = await Podcast.find();
+      return podcasts;
     } catch (err) {
       console.log(err.message);
       return null;
@@ -23,8 +23,8 @@ import Podcast from "../models/Podcast.js";
 
   export const getPodcast= async (PodcastId)=>{
     try {
-      const Podcast = await Podcast.find({podcastId:PodcastId})
-      return Podcast;
+      const podcast = await Podcast.find({podcastId:PodcastId})
+      return podcast;
     } catch (err) {
       console.error(err);
       throw err;
@@ -41,8 +41,8 @@ import Podcast from "../models/Podcast.js";
 
   export const getUserPodcasts = async (userId)=>{
     try {
-      const Podcast = await Podcast.find({userId:userId});
-      return Podcast;
+      const podcast = await Podcast.find({userId:userId});
+      return podcast;
     } catch (err) {
       console.log(err.message);
       return null;
@@ -51,8 +51,8 @@ import Podcast from "../models/Podcast.js";
 
   export const deleteAllPodcastService = async ()=>{
     try {
-      const Podcast = await Podcast.deleteMany();
-      return Podcast;
+      const podcast = await Podcast.deleteMany();
+      return podcast;
     } catch (err) {
       console.log(err.message);
       return null;

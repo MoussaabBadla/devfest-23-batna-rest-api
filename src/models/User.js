@@ -36,6 +36,10 @@ const UserSchema = new mongoose.Schema({
     isSubscribe:{
         type: Boolean,
         default : false,
+    },
+    role:{
+        type: String,
+        default : 'user'
     }
 });
 

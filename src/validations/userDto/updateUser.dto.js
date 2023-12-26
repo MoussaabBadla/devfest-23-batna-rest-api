@@ -6,6 +6,7 @@ const updateMemberDto = [
     body('email').optional().isEmail().withMessage('Invalid email address'),
     body('age').optional().notEmpty().withMessage('age cannot be empty'),
     body('fcmToken').optional().notEmpty().withMessage('fcmToken cant be empty'),
+    body('isSubscribe').optional().isBoolean().notEmpty().withMessage('isSubscribe cant be empty'),
 ];
   
 export default updateMemberDto

@@ -85,9 +85,9 @@ export async function deleteUserController(req,res){
     if(!result) return res.status(404).json({message: "User not found"})
     const user = await deleteUserById(userId);
    
-    return res.status(200).json({
+    return res.status(204).json({
       success: true,
-      message: "user fetched successfully",
+      message: "user deleted successfully",
       data: {
         user
       },

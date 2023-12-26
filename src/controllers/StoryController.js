@@ -1,5 +1,5 @@
 import { createNotification } from "../services/NotificationServices.js";
-import { CreateStory, deleteAllStoriesService, deleteStoryById, getStory } from "../services/StoryServices.js";
+import { CreateStory, deleteAllStoriesService, deleteStoryById, getStories, getStory } from "../services/StoryServices.js";
 import { createStoryFromAudioRequest, createStoryFromImageRequest, createStoryFromTextRequest } from "../utils/aiApiRequests.js";
 import {load_local, save_local, apilink1 } from '../utils/localvariablesConsts.js'
 import { notifyAllUsers } from "../utils/notificationTriggers.js";

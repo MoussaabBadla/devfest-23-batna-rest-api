@@ -1,5 +1,5 @@
 import express from "express"
-import { deleteAllStoriesController, generateStoryFromAudioController, generateStoryFromImageController, generateStoryFromTextController, getStoriesController, getStoryController, getUserStoriesController } from "../controllers/StoryController.js";
+import { deleteAllStoriesController, deleteStoryController, generateStoryFromAudioController, generateStoryFromImageController, generateStoryFromTextController, getStoriesController, getStoryController, getUserStoriesController } from "../controllers/StoryController.js";
 import { protect } from "../middlewares/auth.js";
 import { handleAudioUploadRequiredFile, handleImgUrlRequiredFile, uploadFile } from "../middlewares/imgUploadMiddlware.js";
 
@@ -74,4 +74,5 @@ router.post('/generateStory/text',protect, generateStoryFromTextController);
 router.post('/generateStory/image',protect,uploadFile.single("imgUrl"),handleImgUrlRequiredFile, generateStoryFromImageController);  
 router.post('/generateStory/image',protect,uploadFile.single("audio"),handleAudioUploadRequiredFile, generateStoryFromAudioController);
 router.get('/:storyId',protect, getStoryController );
+router.delete('/:storyId',protect, deleteStoryController);
 export default router;

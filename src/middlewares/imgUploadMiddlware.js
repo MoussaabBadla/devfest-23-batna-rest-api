@@ -18,7 +18,7 @@ export async function handleAudioUploadRequiredFile(req, res, next){
   if(req.file){
     const pathToRemove = req.file.path
     const audioUrl = await uploadAudioToCloudinary(req.file)
-    req.body.audioUrl = audioUrl
+    req.body.audio = audioUrl
     fs.unlink(pathToRemove, (err) => {
       if (err) {
         return res.status(500).send('Error removing temp file');

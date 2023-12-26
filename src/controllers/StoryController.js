@@ -89,7 +89,7 @@ export async function generateStoryFromImageController(req,res){
 
 export async function generateStoryFromAudioController(req,res){
   try {
-    const {audio }= req.body
+    const {audio}= req.body
     const user = req.user
     const response = await createStoryFromAudioRequest({audio},apilink1+"/story")
    

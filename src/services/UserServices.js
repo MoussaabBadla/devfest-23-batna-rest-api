@@ -32,7 +32,7 @@ export const getUserByEmail = async (email) => {
 
   export const getUser= async (userId)=>{
     try {
-      const user = await User.findById(userId).select("-password");
+      const user = await User.find({ _id: userId }).select("-password");
       return user;
     } catch (err) {
       console.log(err.message);

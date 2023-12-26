@@ -15,7 +15,8 @@ export async function generateStoryFromTextController(req,res){
      
       if(response.status>=200 && response.status<300){
         const oldStory = await getStory(response.data.id)
-        if (oldStory) return errorResponse(res,"story with that id already exists")
+        console.log(oldStory)
+        if (oldStory.length >0) return errorResponse(res,"story with that id already exists",400)
         const story =await CreateStory(
           {
           storyId : response.data.id , 
@@ -33,7 +34,7 @@ export async function generateStoryFromTextController(req,res){
            const responseTelgram= await postTelegramPost(response.data.title,response.data.image)
            return
         }else if (story.type == 'news'){
-          const notif = await createNotification({title:story.title,description:story.description,type:story.type})
+          const notif = await createNotification({title:story.title,description:story.content,type:story.type})
           await notifyAllUsers(notif)
           return successResponse(res, "story created successfully",story,201);
         }else{

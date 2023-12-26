@@ -23,11 +23,11 @@ import Story from "../models/Story.js";
 
   export const getStory= async (storyId)=>{
     try {
-      const story = await Story.findById(storyId)
+      const story = await Story.find({storyId:storyId})
       return story;
     } catch (err) {
-      console.log(err.message);
-      return null;
+      console.error(err);
+      throw err;
     }
   }
   export const deleteStoryById=async(storyId) =>{

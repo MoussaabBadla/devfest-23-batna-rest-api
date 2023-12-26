@@ -67,7 +67,7 @@ export async function registerController(req, res) {
     }
     return successResponse(res, "Register Success",result,201);
   } catch (error) {
-    return errorResponse(res,"something went wrong "+err.message, 500);
+    return errorResponse(res,"something went wrong "+error.message, 500);
   }
 }
 
@@ -105,7 +105,7 @@ export async function verifyController(req, res) {
       token,
       ...user,
     },200);
-  } catch (error) {
+  } catch (err) {
     return errorResponse(res,"something went wrong "+err.message, 500);
   }
 }
@@ -119,7 +119,7 @@ export async function CheckAuthController(req,res){
   return successResponse(res,  "User Authenticated",  {
     ...user._doc,
   },200);
-  }catch(error){
+  }catch(err){
     return errorResponse(res,"something went wrong "+err.message, 500);
   }
 }

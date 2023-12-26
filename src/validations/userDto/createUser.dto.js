@@ -6,7 +6,6 @@ const createUserDto = [
     body('email').isEmail().withMessage('Invalid email address'),
     body('password').notEmpty().isLength({min:10}).withMessage('password cannot be empty'),
     body('age').optional().notEmpty().withMessage('age cannot be empty'),
-    body('fcmToken').notEmpty().withMessage('fcmToken cant be empty'),
     body('role').optional().notEmpty().withMessage('role cannot be empty'),
 ];
   

@@ -12,7 +12,7 @@ export const getUserByEmail = async (email) => {
 
   export const getSubscribsUsers= async ()=>{
     try {
-      const users = await User.find({ isSubscribe: true });
+      const users = await User.find({ isSubscribe: true }).select("-password");
       return users;
     } catch (err) {
       console.log(err.message);
@@ -22,7 +22,7 @@ export const getUserByEmail = async (email) => {
 
   export const getUsers = async ()=>{
     try {
-      const users = await User.find();
+      const users = await User.find().select("-password");
       return users;
     } catch (err) {
       console.log(err.message);
@@ -32,7 +32,7 @@ export const getUserByEmail = async (email) => {
 
   export const getUser= async (userId)=>{
     try {
-      const user = await User.findById(userId);
+      const user = await User.findById(userId).select("-password");
       return user;
     } catch (err) {
       console.log(err.message);
@@ -50,9 +50,20 @@ export const getUserByEmail = async (email) => {
 
   export const updateUser = async(userId,userData)=>{
     try {
-     const result = await User.updateOne({ _id: userId }, { $set: userData });
+     const result = await User.updateOne({ _id: userId }, { $set: userData }).select("-password");;
       return result
     } catch (error) {
       console.error(error);
     }
+  }
+
+  export const updateUserForgetPassword = async (email, newPassword)=>{
+try{
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(newPassword, salt);
+  const result = await User.updateOne({email: email }, { $set:{password:hashPassword } });
+  return result;
+}catch (error) {
+  console.error(error);
+}
   }

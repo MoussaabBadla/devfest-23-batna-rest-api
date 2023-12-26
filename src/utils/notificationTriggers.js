@@ -1,5 +1,8 @@
+import { sendMailToSubscribeUsers } from "../services/newsletterServices.js";
+
 export async function notifyAllUsers (notif){
-    var topic = notif.type
+    try{
+        var topic = notif.title
     var message = {
       data: notif,
       topic: topic
@@ -11,4 +14,9 @@ export async function notifyAllUsers (notif){
       .catch((error) => {
         console.log('Error sending message:', error);
       });
+
+      await sendMailToSubscribeUsers("Exciting News from Truly Saver newsLetter",notif)
+    }catch(error) {
+        console.log('Error sending message:', error);
+    }
 }

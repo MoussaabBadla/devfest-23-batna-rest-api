@@ -17,10 +17,9 @@ const UserSchema = new mongoose.Schema({
     },
     verificationCode : {
         type: String,
-        
+        expires: "3m",
     
     },
-
     age :  {
         type: Number,
     
@@ -31,7 +30,6 @@ const UserSchema = new mongoose.Schema({
     },
     fcmToken:{
         type: String,
-        required: true,
     },
     isSubscribe:{
         type: Boolean,

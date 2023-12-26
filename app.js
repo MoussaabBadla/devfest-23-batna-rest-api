@@ -3,26 +3,35 @@ import cors from 'cors';
 import ConnectDB from './src/config/db.js';
 import AuthRoutes from './src/routes/AuthRoutes.js';
 import UserRoutes from './src/routes/UserRoutes.js';
+import StoryRoutes from './src/routes/StoryRoutes.js';
+
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+
+import fcmTokenRoutes from './src/routes/firebaseTokensRoute.js';
 
 
 const app = express();
 
-app.use(cors(
-    {
-        origin : "*"
-    }
-));
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "*",
+    exposedHeaders: "*",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
 
 app.use('/auth',AuthRoutes );
-
+app.use('/fcmToken',fcmTokenRoutes);
 app.use('/users',UserRoutes)
+app.use('/stories',StoryRoutes)
 app.get('/', (req, res) => {
-    res.send('frely Rest API');
+    res.send('wa9i3 Rest API');
 }
 );
 
@@ -32,10 +41,10 @@ const options = {
     definition: {
       openapi: "3.1.0",
       info: {
-        title: "Rest Api Docs",
+        title: "wa9i3 Rest Api Docs",
         version: "0.1.0",
         description:
-          "This is The API application made with Express and documented with Swagger",
+          "This is The API for wa9i3 made with Express and documented with Swagger",
       },
       components:{
         secritySchemas:{
@@ -65,5 +74,7 @@ const options = {
     swaggerUi.setup(specs, { explorer: true })
   );
 app.listen(PORT, () =>
-    console.log(`DEVFESTAPP app listening on port ${PORT}!`),
+    console.log(`wa9i3 app listening on port ${PORT}!`),
 );
+
+

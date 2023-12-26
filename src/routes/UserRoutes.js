@@ -1,55 +1,9 @@
 import express from "express"
-import { getSubscribsUsersController, getUserController, getUsersController, updateUserController } from "../controllers/UsersController.js";
+import { deleteUserController, forgetPasswordController, getSubscribsUsersController, getUserController, getUsersController, updateUserController } from "../controllers/UsersController.js";
 import updateMemberDto from "../validations/userDto/updateUser.dto.js";
 import { checkValidation } from "../middlewares/validationMiddleware.js";
+import forgetPasswordDto from "../validations/userDto/forgetpassword.dto.js";
 // import { protect } from "../middlewares/auth.js";
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - name
- *         - email
- *         - password
- *         - age
- *         - role
- *         - fcmToken
- *       properties:
- *         id:
- *           type: string
- *           description: The auto-generated id of the user
- *         name:
- *           type: string
- *           description: The name of user
- *         email:
- *           type: string
- *           description: The user email
- *         role:
- *           type: string
- *           enum: [user, admin]
- *           description: Whether the user is admin or a simple user
- *         age:
- *           type: number
- *           description: User age
- *         password:
- *           type: string
- *           description: User password
- *         fcmToken:
- *           type: string
- *           description: The FCM token for the user's device
- *       example:
- *         id: d5fE_asz
- *         name: rayan
- *         email: 'rayan@gmail.com'
- *         role: 'user'
- *         age: 20
- *         password: 'password'
- *         fcmToken: 'fcmToken'
- *
- */
 
 /**
  * @swagger
@@ -177,5 +131,8 @@ const router = express.Router();
 router.get("/",getUsersController);
 router.get("/subscribes",getSubscribsUsersController);
 router.get("/:userId",getUserController)
+router.delete("/:userId",deleteUserController)
+
 router.put("/:userId",updateMemberDto,checkValidation,updateUserController)
+router.put("/forgetpassword",forgetPasswordDto,checkValidation,forgetPasswordController)
 export default router;

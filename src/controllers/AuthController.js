@@ -6,6 +6,7 @@ import {
 } from "../services/AuthServices.js";
 import { generateToken } from "../utils/jwt.js";
 import User from "../models/User.js";
+import { errorResponse, successResponse } from "../utils/responseSending.js";
 
 /**
  * @access public 
@@ -21,35 +22,21 @@ export async function loginController(req, res) {
   try {
     let { email, password } = req.body;
     if (!email || !password) {
-      return res.status(422).json({
-        success: false,
-        message: "Email or Password is empty",
-      });
+      return errorResponse(res,"Email or Password is empty", 400);
     }
     const  result = await loginUser(email, password);
     if (!result.success) {
-      return res.status(400).json({
-        success: false,
-        message: result.message,
-      });
+      return errorResponse(res,result.message, 400);
     }
     const user = result.data;
     const token = generateToken(user._id);
     delete user.password;
-    return res.status(200).json({
-      success: true,
-      message: "Login Success",
-      data: {
-        token,
-        ...user._doc,
-      },
-    });
+    return successResponse(res, "Login Success", {
+      token,
+      ...user._doc,
+    },200);
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
-      error:  error.message,
-    });
+    return errorResponse(res,"something went wrong "+err.message, 500);
   }
 }
 
@@ -69,31 +56,18 @@ export async function registerController(req, res) {
   try {
     const { name, email, password  , age } = req.body;
     if (!name || !email || !password || !age) {
-      return res.status(422).json({
-        success: false,
-        message: "Name , Email or Password is empty",
-      });
+      return errorResponse(res,"Name , Email or Password is empty", 400);
     }
 
 
     var result = await registerUser(email, password, name , age);
+    result.data.password  = undefined;
     if (!result.success) {
-      return res.status(400).json({
-        success: false,
-        message: result.message,
-      });
+      return errorResponse(res,result.message, 400);
     }
-
-    return res.status(200).json({
-      success: true,
-      message: "Register Success",
-    });
+    return successResponse(res, "Register Success",result,201);
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
-      error:  error.message,
-    });
+    return errorResponse(res,"something went wrong "+err.message, 500);
   }
 }
 
@@ -113,40 +87,26 @@ export async function verifyController(req, res) {
     const { code, email } = req.body;
 
     if (!code || !email) {
-      return res.status(422).json({
-        success: false,
-        message: "Code or Email is empty",
-      });
+      return errorResponse(res,"Code or Email is empty", 400);
+      
     }
 
     var result = await verifyUser(email, code);
 
     if (!result.success) {
-      return res.status(400).json({
-        success: false,
-        message: result.message,
-        
-      });
+      return errorResponse(res,result.message, 400);
     }
 
     const user = result.data;
     const token = generateToken(user._id);
 
     delete user.password;
-    return res.status(200).json({
-      success: true,
-      message: "Verify Success",
-      data: {
-        token,
-        ...user,
-      },
-    });
+    return successResponse(res,  "Verify Success",  {
+      token,
+      ...user,
+    },200);
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
-      error:  error.message,
-    });
+    return errorResponse(res,"something went wrong "+err.message, 500);
   }
 }
 
@@ -154,26 +114,12 @@ export async function verifyController(req, res) {
 
 export async function CheckAuthController(req,res){
   try{
-    const user = await User.findById(req.user._id).populate({
-      path: "outlines",
-      populate: {
-          path: "chapters",
-          model: "Chapter"
-      }
-  });
+    const user = await User.findById(req.user._id)
 
-    return res.status(200).json({
-      success: true,
-      message: "User Authenticated",
-      data: {
-        ...user._doc,
-      },
-    });
+  return successResponse(res,  "User Authenticated",  {
+    ...user._doc,
+  },200);
   }catch(error){
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
-      error:  error.message,
-    });
+    return errorResponse(res,"something went wrong "+err.message, 500);
   }
 }

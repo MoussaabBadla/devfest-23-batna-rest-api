@@ -1,12 +1,9 @@
 import Notification from "../models/Notification.js";
 
-
-
-export const createNotification = async (notif) => {
+export const createNotification = async ({ title,description,type}) => {
     try {
-      const notification =new Notification(notif);
+      const notification =new Notification({title:title,description:description,type:type});
         await notification.save();
-        notifyAllUsers(notif)
       return notification;
     } catch (err) {
       console.log(err.message);

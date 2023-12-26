@@ -6,7 +6,7 @@ export const sendEmail = async (email, subject, template, context) => {
     to: email,
     subject,
     template,
-    context,å
+    context,
   };
 
   transporter.sendMail(mailOptions, async function (error, info) {
@@ -19,6 +19,23 @@ export const sendEmail = async (email, subject, template, context) => {
   });
 };
 
+
+export async function sendMailPlainText (To, Subject, PlainText){
+  try{  
+    const msg = {
+      from:   process.env.email, 
+      to: To, 
+      subject: Subject, 
+      text: PlainText, 
+    };
+  
+    const info = await transporter.sendMail(msg);
+    console.log(info)
+  }catch(err){
+    console.error(err)
+  }
+  
+  };
 
 
 /**

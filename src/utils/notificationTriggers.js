@@ -1,13 +1,14 @@
 import { sendMailToSubscribeUsers } from "../services/newsletterServices.js";
-
+import admin from "../../firebase_config.js";
 export async function notifyAllUsers (notif){
     try{
-        var topic = notif.title
-    var message = {
-      data: notif,
-      topic: topic
+    let notification = {
+      body: notif.description,
+      title: notif.title,
     };
-    admin.messaging().send(message)
+    await admin.messaging().sendToTopic("Users",{
+        notification
+    })
       .then((response) => {
         console.log('Successfully sent message:', response);
       })

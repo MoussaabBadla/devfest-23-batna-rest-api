@@ -1,10 +1,8 @@
 import mongoose from "mongoose";
-import { v4 as uuidv4 } from 'uuid';
 
 const StorySchema = new mongoose.Schema({
     storyId: {
         type: String,
-        default: uuidv4, 
         required: true,
     },
     title: {
@@ -13,7 +11,7 @@ const StorySchema = new mongoose.Schema({
     },
     type: {
         type: String, //news private public 
-        required : true,
+        default : 'news',
     },
     content: {
         type: String,

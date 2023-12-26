@@ -10,12 +10,20 @@ export async function generateStoryFromTextController(req,res){
     try {
       const {language,story_theme,story_morals,story_details }= req.body
       const user = req.user
-      const response = await createStoryFromTextRequest({language,story_theme,story_morals,story_details,load_local,save_local},apilink1)
-      
+      const response = await createStoryFromTextRequest({language,story_theme,story_morals,story_details,load_local,save_local},apilink1+"/story")
+       console.log(response.data);
       if(response.status>=200 && response.status<300){
-        const story =await CreateStory({...response.data,userId:user.id})
+        const story =await CreateStory(
+          {
+          storyId : response.data.id , 
+          title : response.data.title,
+          content : response.data.content,
+          image : response.data.image,
+          
+          
+          userId : user.id})
         if(story.type == 'news'){
-          const notif = await createNotification({title:story.title,description:story.description,type:story.type})
+          const notif = await createNotification({title:story.title,description:"Check it Out",type:story.type})
         await notifyAllUsers(notif)
             await postToInsta(story.image,story.description)
             return successResponse(res, "story created successfully",story,201);

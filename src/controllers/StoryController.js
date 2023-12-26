@@ -2,7 +2,7 @@ import { createNotification } from "../services/NotificationServices.js";
 import { CreateStory, deleteAllStoriesService, deleteStoryById, getStories, getStory } from "../services/StoryServices.js";
 import { createStoryFromAudioRequest, createStoryFromImageRequest, createStoryFromTextRequest } from "../utils/aiApiRequests.js";
 import {load_local, save_local, apilink1 } from '../utils/localvariablesConsts.js'
-import { notifyAllUsers } from "../utils/notificationTriggers.js";
+import { notifyAllUsers, notifyUserAfterStoryCreation } from "../utils/notificationTriggers.js";
 import { errorResponse, successResponse } from "../utils/responseSending.js";
 // import { postToInsta } from "../utils/socialPosting/instaPostingUtils.js";
 import { postTelegramPost } from "../utils/socialPosting/telegramPostingUtils.js";
@@ -33,11 +33,13 @@ export async function generateStoryFromTextController(req,res){
             // await postToInsta(story.image,story.title)
            const responseTelgram= await postTelegramPost(response.data.title,response.data.image)
            return
-        }else if (story.type == 'news'){
+        }else if (story.type == 'public'){
           const notif = await createNotification({title:story.title,description:story.content,type:story.type})
           await notifyAllUsers(notif)
           return successResponse(res, "story created successfully",story,201);
         }else{
+          const notif = await createNotification({title:story.title,description:"your story has been published",type:story.type})
+          await notifyUserAfterStoryCreation(notif,user.fcmToken)
           return successResponse(res, "story created successfully",story,201);
         }
       }

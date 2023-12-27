@@ -47,7 +47,8 @@ export async function createPodcastRequest({n_people,
         load_local: load_local,
         save_local: save_local
       }
-
+      console.log("data")
+      console.log(data)
       const response = await axios.post(url,data).catch((err)=>{console.log(err);return err.response})
       return response
 }

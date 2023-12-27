@@ -26,8 +26,8 @@ export async function notifyUserAfterStoryCreation(notif,fcmToken){
   try{
    const message = {
     notification: {
-      title: notification.title,
-      body: notification.description,
+      title: notif.title,
+      body: notif.description,
     },
     tokens: [fcmToken],
   };

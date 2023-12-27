@@ -5,7 +5,7 @@ import { createPodcastController, deletePodcastController, generatePodcastContro
 const router = express.Router();
 router.get('/',protect, getPodcastsController);
 router.get('/user',protect, getUserPodcastsController );
-router.post('/generateStory/podcast',protect,generatePodcastController);
+router.post('/generatePodcast',protect,generatePodcastController);
 router.post('/',protect,createPodcastController);
 
 router.put('/:podcastId',protect,updatePodcastTypeController); 

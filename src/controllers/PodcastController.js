@@ -15,12 +15,11 @@ export async function generatePodcastController(req,res){
         topic,podcast_type }= req.body
       
       const user = req.user
-      successResponse(res,"your podcast is coocking",{})
+      successResponse(res,"your podcast is coocking",{},200)
       const response = await createPodcastRequest({n_people,
         duration,
         field,
         topic,load_local,save_local},apilink1+"/podcast")
-     
       if(response.status>=200 && response.status<300){
         const podcast =await CreatePodcast(
           {
@@ -43,11 +42,13 @@ export async function generatePodcastController(req,res){
           return 
         }
       }
-      const notif = await createNotification({title:"Error",description:"there were some issue while generating your story",type:story.type})
+      const notif = await createNotification({title:"Error",description:"there were some issue while generating your story",type:podcast.type})
     await notifyUserAfterStoryCreation(notif,user.fcmToken)
     return 
     } catch (err) {
-        const notif = await createNotification({title:"Error",description:"there were some issue while generating your story "+response.message,type:story.type})
+        const user = req.user
+        console.error(err)
+        const notif = await createNotification({title:"Error",description:"there were some issue while generating your story "+err.message,type:"public"})
         await notifyUserAfterStoryCreation(notif,user.fcmToken)
         return
     }

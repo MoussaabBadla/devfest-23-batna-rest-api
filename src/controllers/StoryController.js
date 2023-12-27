@@ -12,7 +12,7 @@ export async function generateStoryFromTextController(req,res){
       const {language,story_theme,story_morals,story_details,story_type }= req.body
       const user = req.user
 
-      successResponse(res,"your story is coocking",{})
+      successResponse(res,"your story is coocking",{},200)
       const response = await createStoryFromTextRequest({language,story_theme,story_morals,story_details,load_local,save_local},apilink1+"/story")
      
       if(response.status>=200 && response.status<300){
@@ -42,7 +42,8 @@ export async function generateStoryFromTextController(req,res){
       await notifyUserAfterStoryCreation(notif,user.fcmToken)
       return 
     } catch (err) {
-      const notif = await createNotification({title:"Error",description:"there were some issue while generating your story "+response.message,type:story.type})
+      const user = req.user
+      const notif = await createNotification({title:"Error",description:"there were some issue while generating your story "+err.message,type:"private"})
       await notifyUserAfterStoryCreation(notif,user.fcmToken)
       return
     }
@@ -53,7 +54,7 @@ export async function generateStoryFromImageController(req,res){
   try {
     const {image_url,language,story_details,story_type }= req.body
     const user = req.user
-    successResponse(res,"your story is coocking",{})
+    successResponse(res,"your story is coocking",{},200)
     const response = await createStoryFromImageRequest({image_url,language,story_details,load_local,save_local},apilink1+"/story")
    
     if(response.status>=200 && response.status<300){
@@ -82,7 +83,8 @@ export async function generateStoryFromImageController(req,res){
     await notifyUserAfterStoryCreation(notif,user.fcmToken)
     return 
   } catch (err) {
-    const notif = await createNotification({title:"Error",description:"there were some issue while generating your story "+response.message,type:story.type})
+    const user = req.user
+    const notif = await createNotification({title:"Error",description:"there were some issue while generating your story "+err.message,type:"private"})
     await notifyUserAfterStoryCreation(notif,user.fcmToken)
     return
   }

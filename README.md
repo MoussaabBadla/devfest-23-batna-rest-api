@@ -44,11 +44,13 @@ npm run dev
 Your API will be running at https://sekai-api.onrender.com by default.
 
 ## API Documentation
+
 Explore the API through Swagger UI, available at:
 
 https://sekai-api.onrender.com/api-docs
 
-Main Use Cases
+## Main Use Cases
+
 The primary functionalities of this API include:
 
 connecting with our flutter app

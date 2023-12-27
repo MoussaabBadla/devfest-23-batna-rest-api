@@ -13,8 +13,9 @@ export async function generateStoryFromTextController(req,res){
       const user = req.user
 
       successResponse(res,"your story is coocking",{},200)
+      console.log("after sending ....")
       const response = await createStoryFromTextRequest({language,story_theme,story_morals,story_details,load_local,save_local},apilink1+"/story")
-     
+      console.log("after sending3 ....")
       if(response.status>=200 && response.status<300){
         const story =await CreateStory(
           {

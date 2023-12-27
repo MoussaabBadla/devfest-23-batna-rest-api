@@ -10,10 +10,10 @@ export async function createStoryFromTextRequest( {language,story_theme,story_mo
         },
         load_local: load_local,
         save_local: save_local
-
-
     }
+    console.log("after sending2 ....")
     const response= await axios.post(url,data).catch((err)=>{console.log(err);return err.response})
+    console.log("after sending4 ....")
     return response
 } 
 
@@ -49,7 +49,7 @@ export async function createPodcastRequest({n_people,
       }
       console.log("data")
       console.log(data)
-      const response = await axios.post(url,data).catch((err)=>{console.log(err);return err.response})
+      const response = await axios.post(url,data).catch((err)=>{console.log(err);return err})
       return response
 }
 

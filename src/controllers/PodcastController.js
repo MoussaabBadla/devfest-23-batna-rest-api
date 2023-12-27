@@ -107,12 +107,6 @@ export async function generatePodcastController(req,res){
       
     }
   }
-//   {
-//     "id": "a6db7fc8-b273-4b9a-b94a-d68f32ef5f3d",
-//     "title": "Promoting Peace: Unveiling the Unseen - An Algerian Perspective from 1954",
-//     "image": "https://res.cloudinary.com/dspruj3un/image/upload/q_10/v1703633027/73ac2f00-c17b-457f-9f4b-d430075d4bb9.png",
-//     "voice": "https://res.cloudinary.com/dqvkoqlqh/video/upload/fl_splice,l_video:3afd35e6-b151-495c-b8a9-b6033a4505c6/fl_layer_apply/fl_splice,l_video:ce7603c9-7674-4b41-ab4c-6cad09b8e9f2/fl_layer_apply/fl_splice,l_video:6203ee95-a4e6-4e89-baf8-55f61938ca5a/fl_layer_apply/f7e08b6c-8b18-49dd-85b7-dfec7c006a96.mp3"
-//   }
   export async function createPodcastController(req,res){
     try {
         const {id,

@@ -17,8 +17,7 @@ export async function unsubscribeTokenController(req,res){
     try{
         const user = req.user
         const userFcmToken = await updateUser(user._id,{fcmToken:null})
-        const deletedToken = await unsubscribeToken(req.body.token)
-    if(deletedToken) return successResponse(res, "token unsubscribed successfully",null,204);
+    if(userFcmToken) return successResponse(res, "token unsubscribed successfully",null,204);
     }catch(err){
         console.error(err)
         return errorResponse(res,"something went wrong "+err.message, 500);

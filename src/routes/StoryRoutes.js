@@ -7,93 +7,99 @@ import { imageToStory } from "../utils/imageToStory.js";
 /**
  * @swagger
  * tags:
- * - name: Stories
- *  description: Operations related to stories
- * /stories/:
- *  get:
- *    summary: Get all stories
- *    security:
- *      - Bearer: []
- *    responses:
- *      '200':
- *        description: Successful operation
- *  delete:
- *    summary: Delete all stories
- *    security:
- *      - Bearer: []
- *    responses:
- *      '200':
- *        description: Successful operation
- * /stories/user:
- *  get:
- *    summary: Get user stories
- *    security:
- *      - Bearer: []
- *    responses:
- *      '200':
- *        description: Successful operation
- * /stories/generateStory/text:
- *  post:
- *    summary: Generate story from text
- *    security:
- *      - Bearer: []
- *    responses:
- *      '200':
- *        description: Successful operation
- * /stories/generateStory/image:
- *  post:
- *    summary: Generate story from image
- *    security:
- *      - Bearer: []
- *    responses:
- *      '200':
- *        description: Successful operation
- * /stories/{storyId}:
- *  get:
- *    summary: Get a single story
- *    parameters:
- *      - name: storyId
- *        in: path
+ *  - name: Stories
+ *    description: Operations related to Stories
+ * paths:
+ *  /stories:
+ *    get:
+ *      summary: Get all stories
+ *      description: Retrieve a list of all stories.
+ *      tags:
+ *        - Stories
+ *      responses:
+ *        '200':
+ *          description: A successful response with a list of stories.
+ *    put:
+ *      summary: Update a story type
+ *      description: Update an existing story type by ID.
+ *      tags:
+ *        - Stories
+ *      parameters:
+ *        - in: path
+ *          name: storyId
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: The ID of the story to update.
+ *      responses:
+ *        '200':
+ *          description: A successful response with the updated story.
+ *  /stories/{storyId}:
+ *    get:
+ *      summary: Get a story by ID
+ *      description: Retrieve a story by ID.
+ *      tags:
+ *        - Stories
+ *      parameters:
+ *        - in: path
+ *          name: storyId
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: The ID of the user to retrieve.
+ *      responses:
+ *        '200':
+ *          description: A successful response with the user.
+ *    delete:
+ *      summary: Delete a story by ID
+ *      description: Delete a story by ID.
+ *      tags:
+ *        - Stories
+ *      parameters:
+ *        - in: path
+ *          name: storyId
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: The ID of the user to delete.
+ *      responses:
+ *        '204':
+ *          description: A successful response indicating no content.
+ *  /stories/user:
+ *    get:
+ *      summary: Get all user stories
+ *      description: Retrieve a list of all user stories.
+ *      tags:
+ *        - Stories
+ *      responses:
+ *        '200':
+ *          description: A successful response with a list of subscribed users.
+ *          content:
+ *            application/json: {}
+ *  /stories/generateStory/text:
+ *    post:
+ *      summary: Generate story from text
+ *      description: Generate a story from text.
+ *      tags:
+ *        - Stories
+ *      requestBody:
+ *        description: Create story.
  *        required: true
- *        schema:
- *          type: string
- *    security:
- *      - Bearer: []
- *    responses:
- *      '200':
- *        description: Successful operation
- *  delete:
- *    summary: Delete a single story
- *    parameters:
- *      - name: storyId
- *        in: path
- *        required: true
- *        schema:
- *          type: string
- *    security:
- *      - Bearer: []
- *    responses:
- *      '200':
- *        description: Successful operation
- *  put:
- *    summary: Update a single story
- *    parameters:
- *      - name: storyId
- *        in: path
- *        required: true
- *        schema:
- *          type: string
- *    security:
- *      - Bearer: []
- *    responses:
- *      '200':
- *        description: Successful operation
- * components:
- *  securitySchemes:
- *    Bearer:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:       
+ *                story_theme:
+ *                 type: string
+ *                language:
+ *                 type: string
+ *                story_details:
+ *                 type: string
+ *                story_type:
+ *                 type: string
+ *                story_morals:
+ *                 type: string
  */
 
 const router = express.Router();

@@ -1,14 +1,20 @@
-Sekai API
-Welcome to the Sekai API! This API is crafted for seamless integration between our Flutter app and another API that focuses on generating AI content. Its primary purpose is centered around creating notifications, saving data to MongoDB, and facilitating communication with our AI generation service.
+# Sekai API
 
-Prerequisites
-Before diving in, make sure you have the following installed:
+Welcome to the Sekai API! This API is designed for seamless integration between our Flutter application and another API that specializes in generating AI content. Its main functions revolve around creating notifications, storing data in MongoDB, and enabling communication with our AI generation service.
 
-Node.js (version x.x.x)
-npm (version x.x.x)
-MongoDB (optional, if your API uses a database)
-Getting Started
-Clone the repository:
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- Node.js (version 14.x.x)
+- npm (version 6.x.x)
+- MongoDB (optional, if your API uses a database)
+
+## Getting Started
+
+Follow these steps to set up the project:
+
+1. Clone the repository:
 
 git clone https://github.com/MoussaabBadla/devfest-23-batna-rest-api.git
 Navigate to the project folder:
@@ -35,17 +41,17 @@ api_url_1 = "url"
 Start the server:
 
 npm run dev
-Your API will be running at http://localhost:8080 by default.
+Your API will be running at https://sekai-api.onrender.com by default.
 
-API Documentation
+## API Documentation
 Explore the API through Swagger UI, available at:
 
-http://localhost:8080/api-docs
+https://sekai-api.onrender.com/api-docs
 
 Main Use Cases
 The primary functionalities of this API include:
 
-Creating notifications
+connecting with our flutter app
 Saving data to MongoDB
 Serving as an intermediary between Flutter and other APIs for AI generation
 Flutter Integration

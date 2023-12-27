@@ -1,7 +1,7 @@
 
 import multer from 'multer';
 import { uploadAudioToCloudinary, uploadImageToCloudinary } from '../utils/uploadToCloudinary.js';
-
+import fs from 'fs'
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'temp/');

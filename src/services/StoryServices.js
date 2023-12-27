@@ -13,7 +13,7 @@ import Story from "../models/Story.js";
 
   export const getStories = async ()=>{
     try {
-      const stories = await Story.find();
+      const stories = await Story.find({ type: { $ne: "private" } })
       return stories;
     } catch (err) {
       console.log(err.message);

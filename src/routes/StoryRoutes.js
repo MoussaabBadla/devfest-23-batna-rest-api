@@ -1,7 +1,8 @@
 import express from "express"
 import { deleteAllStoriesController, deleteStoryController, generateStoryFromAudioController, generateStoryFromImageController, generateStoryFromTextController, getStoriesController, getStoryController, getUserStoriesController, updateStoryTypeController } from "../controllers/StoryController.js";
 import { protect } from "../middlewares/auth.js";
-import { handleAudioUploadRequiredFile, handleImgUrlRequiredFile, uploadFile } from "../middlewares/imgUploadMiddlware.js";
+import { handleImgUrlRequiredFile, uploadFile } from "../middlewares/imgUploadMiddlware.js";
+import { imageToStory } from "../utils/imageToStory.js";
 
 /**
  * @swagger
@@ -71,7 +72,7 @@ router.get('/',protect, getStoriesController );
 router.delete('/', deleteAllStoriesController );
 router.get('/user',protect, getUserStoriesController );
 router.post('/generateStory/text',protect, generateStoryFromTextController);
-router.post('/generateStory/image',protect,uploadFile.single("image_url"),handleImgUrlRequiredFile,generateStoryFromImageController);  
+router.post('/generateStory/image',protect,imageToStory);  
 // router.post('/generateStory/audio',protect,uploadFile.single("audio"),handleAudioUploadRequiredFile, generateStoryFromAudioController);
 router.get('/:storyId',protect, getStoryController );
 router.delete('/:storyId',protect, deleteStoryController);

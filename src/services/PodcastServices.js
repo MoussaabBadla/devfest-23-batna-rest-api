@@ -13,7 +13,7 @@ import Podcast from "../models/Podcast.js";
 
   export const getPodcasts = async ()=>{
     try {
-      const podcasts = await Podcast.find();
+      const podcasts = await Podcast.find({ type: { $ne: "private" } })
       return podcasts;
     } catch (err) {
       console.log(err.message);

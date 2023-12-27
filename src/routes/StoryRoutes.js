@@ -3,69 +3,114 @@ import { deleteAllStoriesController, deleteStoryController, generateStoryFromAud
 import { protect } from "../middlewares/auth.js";
 import { handleImgUrlRequiredFile, uploadFile } from "../middlewares/imgUploadMiddlware.js";
 import { imageToStory } from "../utils/imageToStory.js";
-
 /**
  * @swagger
- * paths:
- *   /stories:
- *     get:
- *       summary: Get all stories
- *       security:
- *         - Bearer: []
- *       responses:
- *         '200':
- *           description: Successful operation
- *     post:
- *       summary: Generate story from text
- *       security:
- *         - Bearer: []
- *       parameters:
- *         - name: body
- *           in: body
- *           required: true
- *           schema:
- *             $ref: '#/definitions/StoryFromTextDto'
- *       responses:
- *         '200':
- *           description: Successful operation
- *   /stories/user:
- *     get:
- *       summary: Get user stories
- *       security:
- *         - Bearer: []
- *       responses:
- *         '200':
- *           description: Successful operation
- *   /stories/{storyId}:
- *     get:
- *       summary: Get a specific story by ID
- *       security:
- *         - Bearer: []
- *       parameters:
- *         - name: storyId
- *           in: path
- *           required: true
- *           type: string
- *       responses:
- *         '200':
- *           description: Successful operation
- *   /stories/generateStory/text:
- *     post:
- *       summary: Generate a story from text
- *       security:
- *         - Bearer: []
- *       requestBody:
- *         required: true
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/GenerateStoryFromTextDto'
- *       responses:
- *         '200':
- *           description: Successful operation
- *         '400':
- *           description: Validation error
+ * tags:
+ *  - name: Stories
+ *    description: Operations related to stories
+ * /:
+ *  get:
+ *    summary: Get all stories
+ *    tags:
+ *      - Stories
+ *    security:
+ *      - Bearer: []
+ *    responses:
+ *      '200':
+ *        description: Successful operation
+ *  delete:
+ *    summary: Delete all stories
+ *    tags:
+ *      - Stories
+ *    security:
+ *      - Bearer: []
+ *    responses:
+ *      '200':
+ *        description: Successful operation
+ * /user:
+ *  get:
+ *    summary: Get user stories
+ *    tags:
+ *      - Stories
+ *    security:
+ *      - Bearer: []
+ *    responses:
+ *      '200':
+ *        description: Successful operation
+ * /generateStory/text:
+ *  post:
+ *    summary: Generate story from text
+ *    tags:
+ *      - Stories
+ *    security:
+ *      - Bearer: []
+ *    responses:
+ *      '200':
+ *        description: Successful operation
+ * /generateStory/image:
+ *  post:
+ *    summary: Generate story from image
+ *    tags:
+ *      - Stories
+ *    security:
+ *      - Bearer: []
+ *    responses:
+ *      '200':
+ *        description: Successful operation
+ * /{storyId}:
+ *  get:
+ *    summary: Get a single story
+ *    tags:
+ *      - Stories
+ *    parameters:
+ *      - name: storyId
+ *        in: path
+ *        required: true
+ *        schema:
+ *          type: string
+ *    security:
+ *      - Bearer: []
+ *    responses:
+ *      '200':
+ *        description: Successful operation
+ *  delete:
+ *    summary: Delete a single story
+ *    tags:
+ *      - Stories
+ *    parameters:
+ *      - name: storyId
+ *        in: path
+ *        required: true
+ *        schema:
+ *          type: string
+ *    security:
+ *      - Bearer: []
+ *    responses:
+ *      '200':
+ *        description: Successful operation
+ *  put:
+ *    summary: Update a single story
+ *    tags:
+ *      - Stories
+ *    parameters:
+ *      - name: storyId
+ *        in: path
+ *        required: true
+ *        schema:
+ *          type: string
+ *    security:
+ *      - Bearer: []
+ *    responses:
+ *      '200':
+ *        description: Successful operation
+ * components:
+ *  securitySchemes:
+ *    Bearer:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
  */
+
 
 const router = express.Router();
 router.get('/',protect, getStoriesController );

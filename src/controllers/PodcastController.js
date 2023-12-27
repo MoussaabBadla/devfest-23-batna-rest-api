@@ -87,7 +87,7 @@ export async function generatePodcastController(req,res){
   export async function  getUserPodcastsController(req,res){
     try {
       const user = req.user
-      const Podcasts = await getUserPodcasts(user.userId)
+      const Podcasts = await getUserPodcasts(user._id)
       return successResponse(res, "Podcasts fetched successfully",Podcasts,200);
     } catch (err) {
       return errorResponse(res,"something went wrong "+err.message, 500);

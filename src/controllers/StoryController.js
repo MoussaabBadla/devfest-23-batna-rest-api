@@ -165,7 +165,7 @@ export async function deleteStoryController(req,res){
 export async function  getUserStoriesController(req,res){
   try {
     const user = req.user
-    const stories = await getUserStories(user.userId)
+    const stories = await getUserStories(user._id)
     return successResponse(res, "stories fetched successfully",stories,200);
   } catch (err) {
     return errorResponse(res,"something went wrong "+err.message, 500);

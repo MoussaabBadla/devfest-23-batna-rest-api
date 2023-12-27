@@ -12,7 +12,7 @@ const StorySchema = new mongoose.Schema({
     },
     type: {
         type: String, //news private public 
-        default : 'news',
+        required : true,
     },
     content: {
         type: String,

@@ -3,16 +3,15 @@ import { deleteAllStoriesController, deleteStoryController, generateStoryFromAud
 import { protect } from "../middlewares/auth.js";
 import { handleImgUrlRequiredFile, uploadFile } from "../middlewares/imgUploadMiddlware.js";
 import { imageToStory } from "../utils/imageToStory.js";
+
 /**
  * @swagger
  * tags:
- *  - name: Stories
- *    description: Operations related to stories
- * /:
+ * - name: Stories
+ *  description: Operations related to stories
+ * /stories/:
  *  get:
  *    summary: Get all stories
- *    tags:
- *      - Stories
  *    security:
  *      - Bearer: []
  *    responses:
@@ -20,48 +19,38 @@ import { imageToStory } from "../utils/imageToStory.js";
  *        description: Successful operation
  *  delete:
  *    summary: Delete all stories
- *    tags:
- *      - Stories
  *    security:
  *      - Bearer: []
  *    responses:
  *      '200':
  *        description: Successful operation
- * /user:
+ * /stories/user:
  *  get:
  *    summary: Get user stories
- *    tags:
- *      - Stories
  *    security:
  *      - Bearer: []
  *    responses:
  *      '200':
  *        description: Successful operation
- * /generateStory/text:
+ * /stories/generateStory/text:
  *  post:
  *    summary: Generate story from text
- *    tags:
- *      - Stories
  *    security:
  *      - Bearer: []
  *    responses:
  *      '200':
  *        description: Successful operation
- * /generateStory/image:
+ * /stories/generateStory/image:
  *  post:
  *    summary: Generate story from image
- *    tags:
- *      - Stories
  *    security:
  *      - Bearer: []
  *    responses:
  *      '200':
  *        description: Successful operation
- * /{storyId}:
+ * /stories/{storyId}:
  *  get:
  *    summary: Get a single story
- *    tags:
- *      - Stories
  *    parameters:
  *      - name: storyId
  *        in: path
@@ -75,8 +64,6 @@ import { imageToStory } from "../utils/imageToStory.js";
  *        description: Successful operation
  *  delete:
  *    summary: Delete a single story
- *    tags:
- *      - Stories
  *    parameters:
  *      - name: storyId
  *        in: path
@@ -90,8 +77,6 @@ import { imageToStory } from "../utils/imageToStory.js";
  *        description: Successful operation
  *  put:
  *    summary: Update a single story
- *    tags:
- *      - Stories
  *    parameters:
  *      - name: storyId
  *        in: path
@@ -110,7 +95,6 @@ import { imageToStory } from "../utils/imageToStory.js";
  *      scheme: bearer
  *      bearerFormat: JWT
  */
-
 
 const router = express.Router();
 router.get('/',protect, getStoriesController );
